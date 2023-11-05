@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Name</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('b2.jpg'); /* Replace 'background.jpg' with the actual path to your background image */
+            background-size: cover; /* Adjust the background size to cover the entire viewport */
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        #header {
+            color: blue;
+            padding: 10px;
+            
+        }
+        #tabs {
+            color: blue;
+            text-align: center;
+            padding: 10px;
+        }
+        #content {
+            text-align: center;
+            padding: 20px;
+        }
+        #homeContent {
+            display: "none";
+        }
+        #aboutContent{
+            display: "HI"
+        }
+        #eligibilityContent{
+            display: "OK"
+        }
+        .tab {
+            display: inline-block;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        .tab:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Company Name</h1>
+    </div>
+    <div id="tabs">
+        <div class="tab" onclick="showTab('homeContent')">Home</div>
+        <div class="tab" onclick="showTab('aboutContent')">About</div>
+        <div class="tab" onclick="showTab('eligibilityContent')">Eligibility Check</div>
+    </div>
+    <div id="content">
+        <div id="homeContent">HI</div>
+       
