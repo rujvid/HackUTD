@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decision Maker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            background-image: url('b2.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            padding-left: 5%
+            padding-right: 5%
+            position: relative;
+        }
+        .container {
+            
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 5px solid #ccc;
+            border-radius: 5px;
+            
+            
+        }
+
+        .info-box {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 20px;
+            width: 70%; 
+            font-size: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Decision Maker</h1>
+        <p>Enter values to find out if you're eligible or not.</p>
+        <form id="decisionForm">
+            <label for="Gross_Monthly_Income">Gross Monthly Income:</label>
+            <input type="number" id="Gross_Monthly_Income" required><br>
+            <label for="Monthly_Mortagage">Monthly Mortagage:</label>
+            <input type="number" id="Monthly_Mortagage" required><br>
+            <label for="CreditCardPayment">Credit Card Payment Income:</label>
+            <input type="number" id="CreditCardPayment" required><br>
+            <label for="CarPayment">Car Payment Income:</label>
+            <input type="number" id="CarPayment" required><br>
+            <label for="StudentLoan">Student Loan  Income:</label>
+            <input type="number" id="StudentLoan" required><br>
+            <label for="LoanAmount">Loan Amount:</label>
+            <input type="number" id="LoanAmount" required><br>
+            <label for="AppraisedValue">Appraised Value:</label>
+            <input type="number" id="AppraisedValue" required><br>
+
+            <button type="button" onclick="makeDecision()">Make Decision</button>
+        </form>
+        <p id="decisionResult"></p>
+
+        <div class="info-box">
+             <h2>Acronyms explained</h2>
+             <p>Front-end debt to income (FEDTI): mortagage/monthly income. Needs to be <= 28% <br> Debt-to-income ratio (DTI): total monthly
+             debt/monthly income. Preferably <= 36% but not > 43% <br> 
+             Loan-to-value (LTV): Loan amount/Appraised value. < 80% preferred </p>
+        </div>
+
+    </div>
+
+    <script>
+        function makeDecision() {
+            // Get the values from the form
+            const Gross_Monthly_Income = parseFloat(document.getElementById('Gross_Monthly_Income').value);
+            const Monthly_Mortagage = parseFloat(document.getElementById('Monthly_Mortagage').value);
+            const CreditCardPayment = parseFloat(document.getElementById('CreditCardPayment').value);
+            const CarPayment = parseFloat(document.getElementById('CarPayment').value);
+            const StudentLoan = parseFloat(document.getElementById('StudentLoan').value);
+            const LoanAmount = parseFloat(document.getElementById('LoanAmount').value);
+            const AppraisedValue = parseFloat(document.getElementById('AppraisedValue').value);
+
+
+            FEDTI = (Monthly_Mortagage / Gross_Monthly_Income)*100
+            DTI = ((CreditCardPayment + CarPayment + StudentLoan + Monthly_Mortagage)/Gross_Monthly_Income)*100
+            LTV = (LoanAmount/AppraisedValue)*100
+
+
+            // Make a decision based on the values
+            if (isNaN(Gross_Monthly_Income) || isNaN(Monthly_Mortagage) || isNaN(CreditCardPayment) 
+            || isNaN(CarPayment) || isNaN(StudentLoan) || isNaN(LoanAmount) || isNaN(AppraisedValue)) {
+                document.getElementById('decisionResult').textContent = 'Please enter valid numeric values.';
+            } else {
+                if ((FEDTI<= 28) && (DTI <= 43)) {
+                    document.getElementById('decisionResult').textContent = "Congratulations! According to your finances you should be eligible to buy this house! "
+                    + "FEDTI= " + FEDTI +"%"+ " DTI= " + DTI +"% " + "LTV= " + LTV + "%";
+                    
+                    if(LTV > 80){
+                        document.getElementById('decisionResult').textContent = "Congratulations! You are eligible to buy this house however your LTV is too high. Check the 'External Information' tab for more information.        " 
+                         +"FEDTI= " + FEDTI +"% "+ 
+                        " DTI= " + DTI +"% "+ "LTV= " + LTV +"% ";
+                    }
+                    else{
+                        console.log("Congratulations! According to your finances you should be eligible to buy this house! "
+                        +"FEDTI= "+ FEDTI+"%"+ " DTI= " + DTI +"% ");
+                    }
+
+                } 
+                else {
+                    document.getElementById('decisionResult').textContent = "Unfortunately you are not eligible to buy this house. Check the 'External information' tab to help you buy your dream house." + "FEDTI= " + FEDTI +"%"+ " DTI= " + DTI +"% " + "LTV= " + LTV + "%";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
